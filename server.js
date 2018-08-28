@@ -19,18 +19,26 @@ server.route({
   method: 'GET',
   path: '/{name}',
   handler: (request, h) => {
+    request.logger.info('In handler %s', request.path);
     return 'Hello, ' + encodeURIComponent(request.params.name) + '!';
+  },
+});
+
+server.route({
+  method: 'GET',
+  path: '/hello',
+  handler: (request, h) => {
+    return h.file('./public/hello.html');
   },
 });
 
 const init = async () => {
   await server.register(require('inert'));
-
-  server.route({
-    method: 'GET',
-    path: '/hello',
-    handler: (request, h) => {
-      return h.file('./public/hello.html');
+  await server.register({
+    plugin: require('hapi-pino'),
+    options: {
+      prettyPrint: true,
+      logEvents: ['response'],
     },
   });
 

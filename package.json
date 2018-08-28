@@ -19,6 +19,7 @@
   "homepage": "https://github.com/iainfreestone/exploring-hapi#readme",
   "dependencies": {
     "hapi": "^17.5.4",
+    "hapi-pino": "^5.0.1",
     "inert": "^5.1.0"
   }
 }
